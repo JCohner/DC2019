@@ -28,7 +28,7 @@ def update(dt):
     while ser.in_waiting: #if theres bytes on the serial port that are available
         line = ser.read_until().strip() #strip() removes the \r\n #reads the line till \r\n then removes the new line return chars
         values = line.decode('ascii').split(' ')
-        print(values)
+        print("received this on BT Serial " + str(values))
         if(values[0] == 'x'):
             x[int(values[1])] = int(values[2])
             print(x)
@@ -51,5 +51,8 @@ def on_key_down(key): #key names are saved in CAPS
     if key.name == 'C':
         ser.write(b'c')
         print("Sent c")
+    if key.name == 'D':
+        ser.write(b'd')
+        print("Sent d")
 
 ser = serial.Serial('COM25',9600)
