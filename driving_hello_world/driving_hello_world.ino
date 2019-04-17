@@ -4,7 +4,7 @@
 
 BluetoothSerial SerialBT;
 
-
+//Drive Pin Declaration & definition
 int drive_motor_A_pwm_pin = A5;
 int drive_motor_B_pwm_pin = A1;
 
@@ -14,6 +14,8 @@ int drive_motor_B_dir_pin = 32;
 const int PWMAchannel = 1;
 const int PWMBchannel = 0; //is this a valid num
 int count = 0;
+int motorAeff = 0;
+int motorBeff = 0;
 
 void setup() {
   Serial.begin(115200);
@@ -35,13 +37,10 @@ void setup() {
 }
 
 void loop() {
-  ledcWrite(PWMAchannel,255);
-  ledcWrite(PWMBchannel,255);
-  delay(3000);
-  ledcWrite(PWMAchannel,0);
-  ledcWrite(PWMBchannel,0);
-  delay(3000);
-  /*
+  ledcWrite(PWMAchannel,motorAeff);
+  ledcWrite(PWMBchannel,motorBeff);
+
+  
   char c = 0;
   int an = 0;
   int i;
@@ -65,18 +64,26 @@ void loop() {
       SerialBT.println(an);
     }
     else if (c == 'x'){
+      Serial.println("gotta - goodbye!");
+      /*
       count = count + 1;
       for (i=0; i<100; i++){
         SerialBT.print("x ");
         SerialBT.print(i);
         SerialBT.print(" ");
         SerialBT.println(int(50*sin(2*3.14/50*i+count)));
-      }
+      }*/
+      
     }
     else if (c == 'c'){
       SerialBT.println("c 1");
+      Serial.println("gotta c turning motor ON!");
+      motorAeff = 255;
+    } else if (c == 'd'){
+      Serial.println("gotta c turning motor OFF!");
+      motorAeff = 0;
     }
   }
   delay(20);
-  */
+  
 }
