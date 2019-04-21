@@ -1,4 +1,4 @@
-# Write your code here :-)
+#Write your code here :-)
 import serial
 import string
 import pygame
@@ -54,5 +54,8 @@ def on_key_down(key): #key names are saved in CAPS
     if key.name == 'D':
         ser.write(b'd')
         print("Sent d")
+    if key.name == 'R':
+        ser.write(b'r')
+        print("Sent r")
 
 ser = serial.Serial('COM25',9600)
