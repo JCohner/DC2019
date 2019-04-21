@@ -13,9 +13,12 @@ int drive_motor_B_dir_pin = 32;
 
 const int PWMAchannel = 1;
 const int PWMBchannel = 0; //is this a valid num
+
 int count = 0;
 int motorAeff = 0;
 int motorBeff = 0;
+int motorAdir = 0; // 0 = CW 1 = CCW
+int motorBdir = 0; 
 
 void setup() {
   Serial.begin(115200);
@@ -32,8 +35,8 @@ void setup() {
 
   pinMode(drive_motor_A_dir_pin, OUTPUT);
   pinMode(drive_motor_B_dir_pin, OUTPUT);
-  digitalWrite(drive_motor_A_dir_pin, LOW);
-  digitalWrite(drive_motor_B_dir_pin, LOW);
+  digitalWrite(drive_motor_A_dir_pin, motorAdir);
+  digitalWrite(drive_motor_B_dir_pin, motorBdir);
 }
 
 void loop() {
@@ -79,9 +82,17 @@ void loop() {
       SerialBT.println("c 1");
       Serial.println("gotta c turning motor ON!");
       motorAeff = 255;
+      motorBeff = 255;
     } else if (c == 'd'){
       Serial.println("gotta c turning motor OFF!");
       motorAeff = 0;
+      motorBeff = 0;
+    } else if (c == 'r'){
+      SerialBT.println("c 1");
+      Serial.println("reversing direction!");
+      motorAeff = 255;
+      motorAdir = !motorAdir;
+      digitalWrite(drive_motor_A_dir_pin, motorAdir);
     }
   }
   delay(20);
