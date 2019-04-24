@@ -11,6 +11,11 @@ int drive_motor_B_pwm_pin = A1;
 int drive_motor_A_dir_pin = 14;
 int drive_motor_B_dir_pin = 32;
 
+int push_buttonA = 12;
+int push_buttonB = 27;
+
+int red_LED = 13;
+
 const int PWMAchannel = 1;
 const int PWMBchannel = 0; //is this a valid num
 int count = 0;
@@ -21,9 +26,12 @@ void setup() {
   Serial.begin(115200);
   SerialBT.begin("ESP32Josh"); //Bluetooth device name
   //Serial.println("The device started, now you can pair it with bluetooth!");
-  pinMode(13,OUTPUT);
-  digitalWrite(13,LOW);
-
+  pinMode(red_LED,OUTPUT);
+  digitalWrite(red_LED,LOW);
+  //Push buttoin pins
+  pinMode(push_buttonA, INPUT);
+  pinMode(push_buttonB, INPUT);
+  
   //Drive Pins
   ledcSetup(PWMAchannel,5000,8); // pwm channel, frequency, resolution in bits
   ledcAttachPin(drive_motor_A_pwm_pin,PWMAchannel); // pin, pwm channel
@@ -40,6 +48,19 @@ void loop() {
   ledcWrite(PWMAchannel,motorAeff);
   ledcWrite(PWMBchannel,motorBeff);
 
+  if (digitalRead(push_buttonA)){
+    digitalWrite(red_LED,HIGH);
+    Serial.println("Push Button A Pushed!!!!!!");
+  } else {
+    digitalWrite(red_LED, LOW);
+  }
+
+   if (digitalRead(push_buttonB)){
+    digitalWrite(red_LED,HIGH);
+    Serial.println("Push Button B Pushed!!!!!!");
+  } else {
+    digitalWrite(red_LED, LOW);
+  }
   
   char c = 0;
   int an = 0;
@@ -53,10 +74,10 @@ void loop() {
     c = SerialBT.read();
     Serial.println(c);
     if(c == 'o'){
-      digitalWrite(13,HIGH);
+      digitalWrite(red_LED,HIGH);
     }
     else if (c == 'p'){
-      digitalWrite(13,LOW);
+      digitalWrite(red_LED,LOW);
     }
     else if (c == 'a'){
       an = analogRead(A2);
