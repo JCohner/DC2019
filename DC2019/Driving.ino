@@ -44,10 +44,12 @@ void drive_motors(int VRx, int VRy){
 }
 
 void reverse_motor(char motor){
-  if (motor == 'a'){
-    digitalWrite(drive_motor_A_dir_pin, !motorAdir);
+  if (motor == 'a'){ 
+    motorAdir = !motorAdir;
+    digitalWrite(drive_motor_A_dir_pin, motorAdir); 
   } else {
-    digitalWrite(drive_motor_B_dir_pin, !motorBdir); 
+    motorBdir = !motorBdir;
+    digitalWrite(drive_motor_B_dir_pin, motorBdir); 
   }
 }
 
