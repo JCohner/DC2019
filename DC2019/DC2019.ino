@@ -13,41 +13,13 @@ void setup() {
   
 }
 
-int effA;
-int effB;
-
 void loop() {
  if (SerialBT.available()){
   memset(read_char, ' ', sizeof(read_char)); 
   BT_read(read_char);
   process_command(read_char);
-  
  }
-  
 
-  
-  /*
-  
-  Serial.print("motor A eff: ");r
-  Serial.println(effA);
-  Serial.print("motor B eff: ");
-  Serial.println(effB);*/
-  
-  /*
-  switch(read_char){
-    case 'd':
-      
-      break;
-    case 'x':
-      
-      break;
-    case 'r':
-      
-      break;
-    case 'c':
-      
-      break;  
-  }
-  */
-  
+ /*Once per loop send info back to PyGame*/
+ //send_data(); 
 }

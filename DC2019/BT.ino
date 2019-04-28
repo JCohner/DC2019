@@ -14,7 +14,7 @@ void BT_read(char * c){
     c[i++] = SerialBT.read();
     //Serial.print(c[i++]);
   }
-  //sSerial.print(c);
+  //Serial.print(c);
   //sscanf(c, "%d %d", effA, effB);
   
   return;
