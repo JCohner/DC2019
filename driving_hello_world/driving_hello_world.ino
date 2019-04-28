@@ -11,6 +11,9 @@ int drive_motor_B_pwm_pin = A1;
 int drive_motor_A_dir_pin = 14;
 int drive_motor_B_dir_pin = 32;
 
+int push_buttonA = 12;
+int push_buttonB = 27;
+
 const int PWMAchannel = 1;
 const int PWMBchannel = 0; //is this a valid num
 
@@ -43,7 +46,6 @@ void loop() {
   ledcWrite(PWMAchannel,motorAeff);
   ledcWrite(PWMBchannel,motorBeff);
 
-  
   char c = 0;
   int an = 0;
   int i;
@@ -51,16 +53,33 @@ void loop() {
   if (Serial.available()) {
     SerialBT.write(Serial.read());
   }
+  
+   if (digitalRead(push_buttonA)){
+    digitalWrite(13,HIGH);
+    Serial.println("Push Button A Pushed!!!!!!");
+   } else {
+    digitalWrite(13,LOW);
+   }
+
+   if (digitalRead(push_buttonB)){
+    digitalWrite(13,HIGH);
+    Serial.println("Push Button B Pushed!!!!!!");
+   } else {
+    digitalWrite(13,LOW);
+   }
   if (SerialBT.available()) {
-    //Serial.write(SerialBT.read());
+    //Read Character over BT Serial
     c = SerialBT.read();
     Serial.println(c);
+    
     if(c == 'o'){
       digitalWrite(13,HIGH);
     }
+    
     else if (c == 'p'){
       digitalWrite(13,LOW);
     }
+    
     else if (c == 'a'){
       an = analogRead(A2);
       SerialBT.print("a ");
