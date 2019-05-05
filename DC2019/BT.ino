@@ -4,8 +4,10 @@ void BT_setup(){
   return;
 }
 
-void BT_write(int data){
-
+void BT_write(uint16_t info){
+  Serial.println(info);
+  SerialBT.println(info);
+  return;
 }
 
 void BT_read(char * c){
@@ -19,6 +21,3 @@ void BT_read(char * c){
   
   return;
 }
-
-
-

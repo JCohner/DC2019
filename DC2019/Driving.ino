@@ -1,3 +1,4 @@
+
 //Drive Pin Declaration & definition
 int drive_motor_A_pwm_pin = A5;
 int drive_motor_B_pwm_pin = A1;
@@ -35,7 +36,7 @@ void drive_motors(int VRx, int VRy){
     motorAdir = 1;
     motorBdir = 1;
   }*/
-  
+  Serial.println("should only call once");
   motorAeff = VRx;
   motorBeff = VRy;
   ledcWrite(PWMAchannel,motorAeff);
@@ -52,4 +53,3 @@ void reverse_motor(char motor){
     digitalWrite(drive_motor_B_dir_pin, motorBdir); 
   }
 }
-
