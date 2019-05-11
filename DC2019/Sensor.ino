@@ -28,11 +28,11 @@ void sensor_setup(){
     while(1);
   }*/
   laser_sensor_0.setDistanceMode(VL53L1X::Long);
-  laser_sensor_0.setMeasurementTimingBudget(100000);
+  laser_sensor_0.setMeasurementTimingBudget(50000);
   //laser_sensor_1.setDistanceMode(VL53L1X::Long);
   //laser_sensor_1.setMeasurementTimingBudget(100000);
 
-  laser_sensor_0.startContinuous(100);
+  laser_sensor_0.startContinuous(50);
   //laser_sensor_1.startContinuous(100);
   return;
 }
@@ -43,8 +43,9 @@ void laser_distance_read(){
   //Serial.println("called laser read!");
   laser_dist_0 = laser_sensor_0.read(); //isnt returning new data dcx
   if(laser_dist_0 != 0){
+    //Serial.println("got new non zero data!");
     laser_data_0= laser_dist_0;
-    //Serial.println(laser_dist);
+
   }
   /*
   laser_dist_1 = laser_sensor_1.read(); //isnt returning new data dcx
